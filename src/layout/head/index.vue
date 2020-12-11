@@ -1,6 +1,6 @@
 <template>
         <div  class="blog-head-container">
-            <div class="blog-head-box">
+            <div :class="headFixed?'fixed':''" class="blog-head-box">
                 <div class="userInfo">
                     <div class="userInfo-l">
                         <img src="../../assets/imgs/avatar.jpg" alt="">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="search-box">
                     <span class="icon icon-search"></span>
-                    <a v-show="!isShort" @click="openMenu" href="javascript:void(0)"> <span class="close"></span></a>
+                    <a v-show="!isShort&&!headFixed" @click="openMenu" href="javascript:void(0)"> <span class="close"></span></a>
                     <a v-show="isShort" @click="openMenu" href="javascript:void(0)"> <span class="open"></span></a>
                 </div>
                 <div class="menu-box">
@@ -65,7 +65,6 @@ import {defineComponent } from 'vue';
     props:{
         msg:String
     },
-
     methods:{
         openMenu(){
             this.isShort = !this.isShort;
@@ -78,13 +77,25 @@ import {defineComponent } from 'vue';
         },
         afterVisibleChange(){
             
-        }
+        },
+        handleScroll() {
+            var top = Math.floor(document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset);
+            if(top!==0){
+                this.headFixed = true;
+            }else{
+                this.headFixed = false;
+            }
+        }   
     },
     data() {
         return {
             isShort:false,
             visible:false,
+            headFixed:false
         }
+    },
+    mounted(){
+        window.addEventListener('scroll', this.handleScroll, true);
     }
 
   });
@@ -97,10 +108,22 @@ import {defineComponent } from 'vue';
         // width:80%;
         margin:0 auto;
         max-width:1000px;
+        
         .blog-head-box{
             // width:78%;
             // max-width:780px;
-            padding:20px 20px;
+            transition: all 0.4s cubic-bezier(0, 0.99, 0.2, 1);
+            &.fixed{
+                position:fixed;
+                top:-40px;
+                left:50%;
+                width:1000px;
+                margin-left:-500px;
+                z-index:999;
+                box-shadow:-5px 5px 10px -4px #d5d8d5,5px 5px 10px -4px #d8d8d8;
+            }
+            margin:20px 0px;
+            padding:0 20px;
             display:flex;
             justify-content:space-between;
             align-items: center;
@@ -138,7 +161,7 @@ import {defineComponent } from 'vue';
             .menu-list{
                 //width:50%;
                 transition: all 0.3s cubic-bezier(0, 0.99, 0.2, 1);
-                margin:0 70px;
+                margin:0 50px;
                 overflow: hidden;
                 &.short{
                     //width:1px;

@@ -17,8 +17,8 @@ export default createRouter({
                 component:() => import('../views/home/index.vue')
             },
             {
-                path:"article",
-                component:() => import('../views/article/index.vue')
+                path:"serial",
+                component:() => import('../views/serial/index.vue')
             }
             
         ]

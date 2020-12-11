@@ -1,6 +1,6 @@
 <template>
     <div class="main-page-container">
-        <blogHead :msg="'这是头部'"/>
+        <blogHead />
         <router-view/>
     </div>
     
