@@ -1,6 +1,6 @@
 <template>
         <div  class="blog-head-container">
-            <div :class="headFixed?'fixed':''" class="blog-head-box">
+            <div :class="headFixed?'fixed':'noFixed'" class="blog-head-box">
                 <div class="userInfo">
                     <div class="userInfo-l">
                         <img src="../../assets/imgs/avatar.jpg" alt="">
@@ -13,14 +13,9 @@
                 </div>
                 <div class="menu-list" :class="isShort?'short':''">
                     <ul :class="isShort?'short':''">
-                        <li>
-                            <a href="/#/home">文章</a>
+                        <li :class="item.name===state.thisMenu?'on':''" @click="tabMenu(item)" v-for="(item,i) in menuList" :key="i">
+                            <a href="javascript:void(0)">{{item.name}}</a>
                         </li>
-                        <li><a href="/#/serial">连载</a></li>
-                        <li><a href="/#/resume">简历</a></li>
-                        <li><a href="/#/msg">留言</a></li>
-                        <li><a href="/#/position">步迹</a></li>
-                        <li><a href="/#/other">其他</a></li>
                     </ul>
                 </div>
                 <div class="search-box">
@@ -42,13 +37,9 @@
                 @close="onClose"
                 >
                 <ul>
-                    <li>
-                        <a href="/">文章</a>
+                    <li @click="tabMenu(item)" v-for="(item,i) in menuList" :key="i">
+                        <a href="javascript:void(0)">{{item.name}}</a>
                     </li>
-                    <li><a href="/#/serial">连载</a></li>
-                    <li><a href="/#/resume">简历</a></li>
-                    <li><a href="/#/msg">留言</a></li>
-                    <li><a href="/#/other">其他</a></li>
                 </ul>
             </a-drawer>
         </div>
@@ -56,10 +47,14 @@
    
 </template>
 <script lang="ts">
-import {defineComponent } from 'vue';
+import {defineComponent,ref, reactive} from 'vue';
+import { useRoute, useRouter } from  'vue-router';
  export default defineComponent({
     setup(props) {
-        console.log(props.msg)
+        const state = reactive({ thisMenu: "" });
+        const route = useRoute()
+        const router = useRouter()
+        return {state,route,router}
     },
     
     props:{
@@ -78,6 +73,12 @@ import {defineComponent } from 'vue';
         afterVisibleChange(){
             
         },
+        tabMenu(item:any){
+            this.state.thisMenu = item.name;
+            this.router.push({
+                path:item.url
+            })
+        },
         handleScroll() {
             var top = Math.floor(document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset);
             if(top!==0){
@@ -91,7 +92,33 @@ import {defineComponent } from 'vue';
         return {
             isShort:false,
             visible:false,
-            headFixed:false
+            headFixed:false,
+            menuList:[
+                {
+                    url:"/",
+                    name:"文章"
+                },
+                {
+                    url:"/serial",
+                    name:"连载"
+                },
+                {
+                    url:"/resume",
+                    name:"简历"
+                },
+                {
+                    url:"/msg",
+                    name:"留言"
+                },
+                {
+                    url:"/position",
+                    name:"步迹"
+                },
+                {
+                    url:"/other",
+                    name:"其他"
+                },
+            ]
         }
     },
     mounted(){
@@ -101,6 +128,19 @@ import {defineComponent } from 'vue';
   });
 </script>
 <style lang="less">
+    @keyframes headFixed{
+        from {top:-120px;}
+        to {top:-40px;}
+    }
+    @keyframes headNoFixed{
+        from {
+            opacity:0;
+            
+        }
+        to {
+            opacity:1;
+        }
+    }
     .blog-head-container{
         
         display:flex;
@@ -112,7 +152,10 @@ import {defineComponent } from 'vue';
         .blog-head-box{
             // width:78%;
             // max-width:780px;
-            transition: all 0.4s cubic-bezier(0, 0.99, 0.2, 1);
+            //transition: all 0.4s cubic-bezier(0, 0.99, 0.2, 1);
+            &.noFixed{
+                animation:0.5s headNoFixed normal;
+            }
             &.fixed{
                 position:fixed;
                 top:-40px;
@@ -121,6 +164,7 @@ import {defineComponent } from 'vue';
                 margin-left:-500px;
                 z-index:999;
                 box-shadow:-5px 5px 10px -4px #d5d8d5,5px 5px 10px -4px #d8d8d8;
+                animation:0.5s headFixed normal;
             }
             margin:20px 0px;
             padding:0 20px;
@@ -184,7 +228,13 @@ import {defineComponent } from 'vue';
                         list-style-type:none;
                         margin:0 15px;
                         >a{
-                            color:#999;
+                                color:#999;
+                            }
+                        &.on{
+                            >a{
+                                color:#333;
+                            }
+                            
                         }
                     }
                 }

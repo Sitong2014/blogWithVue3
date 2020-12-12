@@ -22,7 +22,7 @@
                         :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
                     >
                         <a-spin v-if="loadingMore" />
-                        <a-button v-else @click="onLoadMore">加载更多</a-button>
+                        <a-button class="more-btn" v-else @click="onLoadMore">加载更多</a-button>
                     </div>
                 </template>
             </a-list>
@@ -230,6 +230,11 @@ export default {
                         }
                     }
                 }
+            }
+            button.more-btn{
+                padding:0 40px;
+                background-color:#fff;
+                border:none;
             }
         }
         .home-r{
