@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 export default {
-    name:"blogHome",
+    name:"serial",
     setup(){
     },
     props:{

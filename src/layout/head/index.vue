@@ -102,10 +102,10 @@ import { useRoute, useRouter } from  'vue-router';
                     url:"/serial",
                     name:"连载"
                 },
-                {
-                    url:"/resume",
-                    name:"简历"
-                },
+                // {
+                //     url:"/resume",
+                //     name:"简历"
+                // },
                 {
                     url:"/msg",
                     name:"留言"

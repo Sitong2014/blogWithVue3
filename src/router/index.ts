@@ -19,7 +19,11 @@ export default createRouter({
             {
                 path:"serial",
                 component:() => import('../views/serial/index.vue')
-            }
+            },
+            {
+              path:"msg",
+              component:() => import('../views/msg/index.vue')
+            },
             
         ]
       }

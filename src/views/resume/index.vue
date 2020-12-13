@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 export default {
-    name:"blogHome",
+    name:"resume",
     setup(){
     },
     props:{
@@ -15,7 +15,6 @@ export default {
         
     },
     created(){
-        console.log("this is created")
     },
     data() {
         return {
@@ -24,4 +23,10 @@ export default {
 }
 </script>
 <style lang="less">
+    .resume-container{
+        display:flex;
+        justify-content: space-between;
+        width:1000px;
+        margin:0 auto;
+    }
 </style>
