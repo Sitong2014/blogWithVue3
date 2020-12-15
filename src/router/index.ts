@@ -17,12 +17,20 @@ export default createRouter({
                 component:() => import('../views/home/index.vue')
             },
             {
+              path:"articleDetail",
+              component:() => import('../views/home/articleDetail.vue')
+          },
+            {
                 path:"serial",
                 component:() => import('../views/serial/index.vue')
             },
             {
               path:"msg",
               component:() => import('../views/msg/index.vue')
+            },
+            {
+              path:"position",
+              component:() => import('../views/position/index.vue')
             },
             
         ]

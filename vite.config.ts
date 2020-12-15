@@ -27,9 +27,9 @@ module.exports = {
   // 反向代理
   proxy: {
     '/api': {
-    //   target: 'https://blog.csdn.net/weixin_45292658',
-    //   changeOrigin: true,
-    //   rewrite: path => path.replace(/^\/api/, '')
+      target: 'http://127.0.0.1:7001',
+      changeOrigin: true,
+      rewrite: (path:string) => path.replace(/^\/api/, '')
     }
   }
 }

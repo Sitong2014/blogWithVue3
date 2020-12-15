@@ -20,7 +20,7 @@
                 </div>
                 <div class="search-box">
                     <span class="icon icon-search"></span>
-                    <a v-show="!isShort&&!headFixed" @click="openMenu" href="javascript:void(0)"> <span class="close"></span></a>
+                    <a v-show="!isShort" @click="openMenu" href="javascript:void(0)"> <span class="close"></span></a>
                     <a v-show="isShort" @click="openMenu" href="javascript:void(0)"> <span class="open"></span></a>
                 </div>
                 <div class="menu-box">
@@ -81,7 +81,7 @@ import { useRoute, useRouter } from  'vue-router';
         },
         handleScroll() {
             var top = Math.floor(document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset);
-            if(top!==0){
+            if(top>60){
                 this.headFixed = true;
             }else{
                 this.headFixed = false;
@@ -160,7 +160,7 @@ import { useRoute, useRouter } from  'vue-router';
                 position:fixed;
                 top:-40px;
                 left:50%;
-                width:1000px;
+                // width:1000px;
                 margin-left:-500px;
                 z-index:999;
                 box-shadow:-5px 5px 10px -4px #d5d8d5,5px 5px 10px -4px #d8d8d8;
